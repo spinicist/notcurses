@@ -92,7 +92,7 @@ elseif(APPLE)
 # surely there's a better way to do this? alas, seems necessary to pull the
 # pkg-config files out of Homebrew.
 if(NOT DEFINED ENV{PKG_CONFIG_PATH})
-set(ENV{PKG_CONFIG_PATH} "/usr/local/opt/ncurses/lib/pkgconfig")
+set(ENV{PKG_CONFIG_PATH} "/opt/homebrew/opt/ncurses/lib/pkgconfig")
 endif()
 set(PKGCONFIG_DIR "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
 else()
@@ -167,6 +167,8 @@ endif()
 # this is going to be true for anything lacking pkg-config/CMake support.
 # unigbrk.h was introduced in libunistring 0.9.4, 2010-02-14.
 unset(HAVE_UNISTRING_H CACHE)
+find_path(UNISTRING_INCLUDE unigbrk.h)
+set(CMAKE_REQUIRED_INCLUDES ${UNISTRING_INCLUDE})
 check_include_file("unigbrk.h" HAVE_UNISTRING_H)
 if(NOT "${HAVE_UNISTRING_H}")
   message(FATAL_ERROR "Couldn't find unigbrk.h from GNU libunistring")
