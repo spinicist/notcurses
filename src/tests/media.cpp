@@ -3,9 +3,6 @@
 #include <vector>
 #include <cmath>
 
-// only run through this many frames of video
-constexpr auto FRAMECOUNT = 100;
-
 TEST_CASE("Media") {
   auto nc_ = testing_notcurses();
   REQUIRE(nullptr != nc_);
@@ -20,6 +17,8 @@ TEST_CASE("Media") {
     CHECK(!notcurses_canopen_videos(nc_));
   }
 #else
+  // only run through this many frames of video
+  constexpr auto FRAMECOUNT = 100;
   SUBCASE("ImagesEnabled") {
     CHECK(notcurses_canopen_images(nc_));
   }
